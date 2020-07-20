@@ -15,6 +15,10 @@ class filterBugReport:
             blackfile = open("black.list", 'r')
             self.black_data = blackfile.read().split(DELIMITER)
             blackfile.close()
+        if path.exists("white.list"):
+            whitefile = open("white.list", 'r')
+            self.white_data = whitefile.read().split(DELIMITER)
+            whitefile.close()
 
     def blacklist_check(self, traceback):
         """
@@ -24,5 +28,16 @@ class filterBugReport:
         """
         if self.black_data:
             if traceback in self.black_data:
+                return True
+        return False
+
+    def whitelist_check(self, traceback):
+        """
+        boolean:    - TRUE if traceback (bug) appears in white data list
+                    - FALSE if no white data (DOES NOT EXIST)
+                    - FALSE if traceback (bug) DOES NOT appear in white data list
+        """
+        if self.white_data:
+            if traceback in self.white_data:
                 return True
         return False
