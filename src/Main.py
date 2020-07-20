@@ -1,8 +1,9 @@
 import argparse
-import selectors
+import selectors2
 import sys
 import subprocess
 import src.SendToServer as server
+from src.FilterLists import filterBugReport
 from time import sleep
 import logging
 
@@ -11,6 +12,7 @@ class Main(object):
 
     def __init__(self):
         self.server = server.SendToServer()
+        self.filterBugReport = filterBugReport()
 
     def parsingCommandLineArguments(self):
         """
@@ -34,8 +36,8 @@ class Main(object):
                              stdin=subprocess.PIPE,
                              shell=True)
 
-        sel = selectors.DefaultSelector()
-        sel.register(p.stderr, selectors.EVENT_READ)
+        sel = selectors2.DefaultSelector()
+        sel.register(p.stderr, selectors2.EVENT_READ)
 
         while True:
             for key, _ in sel.select():
@@ -50,10 +52,12 @@ class Main(object):
                     raise Exception(f'{scriptName}, module is not found!')
                 elif str(traceback).find("No such file or directory") != -1:
                     raise Exception(f'{scriptName} script is not found!')
-
-                respondCode = self.server.sendToServer(traceback)
-                if respondCode.status_code != 200:
-                    logging.error("Unable to report bug to server, response code: " + str(respondCode.status_code))
+                # if bug encountered DOES NOT appear in black list data, you CAN send bug to server
+                if not self.filterBugReport.blacklist_check(str(traceback)):
+                    # send bug to server
+                    respondCode = self.server.sendToServer(traceback)
+                    if respondCode.status_code != 200:
+                        logging.error("Unable to report bug to server, response code: " + str(respondCode.status_code))
 
 
 if __name__ == '__main__':
