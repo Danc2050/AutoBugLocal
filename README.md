@@ -55,10 +55,10 @@ NameError: name 'spam' is not defined
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: Can't convert 'int' object to str implicitly
+```
 
 #### Usage
 AutoBugTracker can be run by using the command `python3 AutoBugLocal.py client-program`
-```
 
 ---
 
