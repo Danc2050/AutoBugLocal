@@ -15,10 +15,14 @@ class filterBugReport:
             blackfile = open("black.list", 'r')
             self.black_data = blackfile.read().split(DELIMITER)
             blackfile.close()
+        else:
+            self.black_data = None
         if path.exists("white.list"):
             whitefile = open("white.list", 'r')
             self.white_data = whitefile.read().split(DELIMITER)
             whitefile.close()
+        else:
+            self.white_data = None
 
     def blacklist_check(self, traceback):
         """
