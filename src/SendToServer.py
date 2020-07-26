@@ -11,7 +11,7 @@ class SendToServer:
         self.url = self.configs.get("url")
 
     def config(self, section):
-        filename = os.path.abspath("../resource/config.ini")
+        filename = os.path.abspath("resource/config.ini")
         parser = ConfigParser()
         parser.read(filename)
 
