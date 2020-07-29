@@ -2,7 +2,7 @@ import requests
 import os
 from configparser import ConfigParser
 from time import sleep
-
+from sys import platform
 
 class SendToServer:
 
@@ -11,7 +11,11 @@ class SendToServer:
         self.url = self.configs.get("url")
 
     def config(self, section):
-        filename = os.path.abspath("resource/config.ini")
+        # Can add more platforms here like windows if needed.
+        if platform == 'linux':
+            filename = os.path.abspath("resource/config.ini")
+        else:
+            filename = os.path.abspath("../resource/config.ini")
         parser = ConfigParser()
         parser.read(filename)
 
