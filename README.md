@@ -34,6 +34,50 @@ Currently the AutoBugTracker client side repository can be cloned [here](https:/
   
 _Eventually we would like to set this up as a pip package._
 
+#### Windows Setup
+To run AutoBugTracker on windows machines you will need to install WSL 1 and the Ubuntu terminal for windows 10.  
+
+1. Install the Windows Subsystem for Linux.
+	1. Open PowerShell as Administrator:
+		1. To open the PowerShell type `PowerShell` into the search box on windows 10.
+	2. To install WSL 1 for windows copy and paste this command into PowerShell, then restart your computer:
+		1. `dism.exe/online/enable-feature/featurename:Microsoft-Windows-Subsystem-Linux/all/norestart`.
+2. Installing Ubuntu.
+	1. Once WSL 1 has been installed and enabled, open the windows Microsoft store by searching for it in the Windows 10 search bar.
+	2. Now search for Ubuntu and then click on install to start installing.
+	3. Now that Ubuntu has been installed launch the process. The first time Ubuntu is opened it will finish installing some files and then ask you to create a username and password.
+	4. Once the above setup is done you have installed WSL 1 and the Ubuntu Linux distribution that can be used to run AutoBugTracker.
+3. Updating Ubuntu and Installing pip.
+	1. Now that Ubuntu is installed you may need to update it.
+		1. At the Ubuntu command line type: `sudo apt update`.
+		2. Now there may be some libraries that need to be installed so AutoBugTracker can run. Install pip if you have not already by typing in: `sudo apt install python3-pip`.
+		3. Now when you try to run AutoBugTracker and there are some dependencies missing you can install them using pip3.
+4. Setting up AutoBugTracker in Ubuntu.
+	1. Now that we have the proper environment setup to use AutoBugTracker on Windows 10 we need to pull the project from the github repo and set up the correct python path.
+		1. Create a directory for AutoBugTracker.
+			1. `mkdir someDirectory`.
+		2. Now go to the AutoBugLocal [repo](https://github.com/Danc2050/AutoBugLocal) and copy the link under the green code button.
+		3. Once you have copied the link under the green code button, `cd` into the directory that you want to clone the repo into and enter the following command:
+			1. `git clone https://github.com/Danc2050/AutoBugLocal.git`.
+5. Running AutoBugTracker.
+	1. Now the `PYTHONPATH=` variable needs to be added to your `.bashrc` file.
+		1. Go to your base directory and you can type:
+			1. `ls -a` and then `vim .bashrc`.
+		2. At the very bottom of the `.bashrc` file on a new line add:
+			1. `export PYTHONPATH=$PWD/AutoBugLocal;`.
+				1. Save the changes and exit the `.bashrc` file.
+			2. Now at the command line type: `source .bashrc`.
+		3. At the Ubuntu command line type:
+			1. `PYTHONPATH=$PWD/AutoBugLocal`.
+6. Running your tests.
+	1. To run tests using AutoBugTracker you will want to be in the AutoBugLocal directory and then create a new directory for your test scripts.
+		1. `mkdir localTests`.
+			1. `cd` into this directory and you can put your tests scripts in here.
+				1. Mine is called `test.py`.
+		2. To run AutoBugTracker along with a test script `cd` into AutoBugLocal and then type, depending on your test directory and script name:
+			1. `python3 src/Main.py -S localTests/test.py`.
+            2. **Note:** You may need to run the command `chmod +x test.py` in order for AutoBugTracker to be able to execute the test script.
+
 #### Example Black List
 A black list can be configured locally to prevent any unwanted/unnecessary bugs from making it to the server.  
   
