@@ -64,18 +64,19 @@ To run AutoBugTracker on windows machines you will need to install WSL 1 and the
 		1. Go to your base directory and you can type:
 			1. `ls -a` and then `vim .bashrc`.
 		2. At the very bottom of the `.bashrc` file on a new line add:
-			1. `Export PYTHONPATH=$PWD/AutoBugLocal;`.
+			1. `export PYTHONPATH=$PWD/AutoBugLocal;`.
 				1. Save the changes and exit the `.bashrc` file.
 			2. Now at the command line type: `source .bashrc`.
 		3. At the Ubuntu command line type:
-			1. `PYTHONPATH=$PWD/AutoBugLocal/src`.
+			1. `PYTHONPATH=$PWD/AutoBugLocal`.
 6. Running your tests.
-	1. To run tests using AutoBugLocal you will want to be in the AutoBugLocal directory and then create a new directory for your test scripts.
+	1. To run tests using AutoBugTracker you will want to be in the AutoBugLocal directory and then create a new directory for your test scripts.
 		1. `mkdir localTests`.
 			1. `cd` into this directory and you can put your tests scripts in here.
 				1. Mine is called `test.py`.
-		2. To run AutoBugLocal along with a test script `cd` into AutoBugLocal and then type, depending on your test directory and script name:
+		2. To run AutoBugTracker along with a test script `cd` into AutoBugLocal and then type, depending on your test directory and script name:
 			1. `python3 src/Main.py -S localTests/test.py`.
+            2. **Note:** You may need to run the command `chmod +x test.py` in order for AutoBugTracker to be able to execute the test script.
 
 #### Example Black List
 A black list can be configured locally to prevent any unwanted/unnecessary bugs from making it to the server.  
